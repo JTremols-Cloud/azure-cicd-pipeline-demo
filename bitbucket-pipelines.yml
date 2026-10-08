@@ -1,0 +1,18 @@
+image: node:24
+
+definitions:
+  steps:
+    - step: &build-test
+        name: Build and test
+        script:
+          - node --version
+          - npm ci
+          - npm test
+
+pipelines:
+  pull-requests:
+    '**':
+      - step: *build-test
+  branches:
+    main:
+      - step: *build-test
